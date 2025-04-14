@@ -10,6 +10,9 @@ class Category {
   final String? image;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
+  @JsonKey(name: 'is_main')
+  final bool isMain;
+  final int x;
   final List<Category> children;
 
   Category({
@@ -18,6 +21,8 @@ class Category {
     this.description,
     this.image,
     this.imageUrl,
+    this.isMain = false,
+    this.x = 0,
     this.children = const [],
   });
 

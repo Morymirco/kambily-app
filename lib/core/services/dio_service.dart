@@ -1,52 +1,44 @@
 import 'package:dio/dio.dart';
-import '../config/api_config.dart';
+import '../constants/api_constants.dart';
 
 class DioService {
   static final DioService _instance = DioService._internal();
-  late Dio dio;
+  late Dio _dio;
 
   factory DioService() {
     return _instance;
   }
 
   DioService._internal() {
-    dio = Dio(
+    _dio = Dio(
       BaseOptions(
-        baseUrl: ApiConfig.baseUrl,
-        connectTimeout: const Duration(milliseconds: ApiConfig.connectTimeout),
-        receiveTimeout: const Duration(milliseconds: ApiConfig.receiveTimeout),
+        baseUrl: ApiConstants.baseUrl,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
       ),
     );
 
-    // Intercepteurs
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          // Ajouter le token si disponible
-          // final token = await getToken();
-          // if (token != null) {
-          //   options.headers['Authorization'] = 'Bearer $token';
-          // }
-          return handler.next(options);
-        },
-        onResponse: (response, handler) {
-          return handler.next(response);
-        },
-        onError: (DioException e, handler) {
-          return handler.next(e);
-        },
-      ),
-    );
+    // Intercepteurs pour le logging
+    _dio.interceptors.add(LogInterceptor(
+      request: true,
+      requestHeader: true,
+      requestBody: true,
+      responseHeader: true,
+      responseBody: true,
+      error: true,
+    ));
   }
 
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
     try {
-      final response = await dio.get(path, queryParameters: queryParameters);
-      return response;
+      return await _dio.get(
+        path,
+        queryParameters: queryParameters,
+      );
     } catch (e) {
       rethrow;
     }
@@ -54,8 +46,7 @@ class DioService {
 
   Future<Response> post(String path, {dynamic data}) async {
     try {
-      final response = await dio.post(path, data: data);
-      return response;
+      return await _dio.post(path, data: data);
     } catch (e) {
       rethrow;
     }
@@ -63,7 +54,7 @@ class DioService {
 
   Future<Response> put(String path, {dynamic data}) async {
     try {
-      final response = await dio.put(path, data: data);
+      final response = await _dio.put(path, data: data);
       return response;
     } catch (e) {
       rethrow;
@@ -72,10 +63,15 @@ class DioService {
 
   Future<Response> delete(String path) async {
     try {
-      final response = await dio.delete(path);
+      final response = await _dio.delete(path);
       return response;
     } catch (e) {
       rethrow;
     }
+  }
+
+  // Ajout du token d'authentification
+  void setAuthToken(String token) {
+    _dio.options.headers['Authorization'] = 'Bearer $token';
   }
 } 

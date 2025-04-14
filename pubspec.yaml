@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   dio: ^5.4.1
   json_annotation: ^4.8.1
+  shared_preferences: ^2.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -67,6 +68,10 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/images/bannier4.jpg
+    - assets/images/bannier1.webp
+    - assets/images/bannier2.webp
+    - assets/images/bannier3.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -103,4 +108,4 @@ flutter_launcher_icons:
   min_sdk_android: 21 # Version minimum d'Android
   adaptive_icon_background: "#FFFFFF" # Couleur de fond pour Android
   adaptive_icon_foreground: "assets/images/logo.jpg" # Logo pour Android adaptatif
-  remove_alpha_ios: true
+  

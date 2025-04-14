@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../layout/main_layout.dart';
+import '../pages/auth/login_page.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final backgroundColor = isDarkMode ? AppColors.secondary : Colors.white;
-    final waveColor = AppColors.primary.withOpacity(isDarkMode ? 0.2 : 0.1);
-    final textColor = isDarkMode ? Colors.white : AppColors.textPrimary;
-    final descriptionColor = isDarkMode 
-        ? Colors.grey[400] 
-        : Colors.grey[600];
-
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // ClipPath supérieur
@@ -30,7 +22,7 @@ class OnboardingScreen extends StatelessWidget {
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  color: waveColor,
+                  color: AppColors.primary.withOpacity(0.1),
                 ),
               ),
             ),
@@ -45,7 +37,7 @@ class OnboardingScreen extends StatelessWidget {
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
-                  color: waveColor,
+                  color: AppColors.primary.withOpacity(0.1),
                 ),
               ),
             ),
@@ -59,18 +51,9 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   const Spacer(),
                   // Logo
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isDarkMode 
-                          ? Colors.white.withOpacity(0.1)
-                          : Colors.grey.shade50,
-                    ),
-                    child: Image.asset(
-                      'assets/images/logo.jpg',
-                      height: 150,
-                    ),
+                  Image.asset(
+                    'assets/images/logo.jpg',
+                    height: 150,
                   ),
                   const SizedBox(height: 40),
                   // Titre
@@ -80,7 +63,7 @@ class OnboardingScreen extends StatelessWidget {
                       fontFamily: 'Krub',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: textColor,
+                      color: AppColors.primary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -91,7 +74,7 @@ class OnboardingScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Krub',
                       fontSize: 16,
-                      color: descriptionColor,
+                      color: Colors.grey[600],
                       height: 1.5,
                     ),
                     textAlign: TextAlign.center,
@@ -106,13 +89,12 @@ class OnboardingScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MainLayout(),
+                            builder: (context) => const LoginPage(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        elevation: isDarkMode ? 2 : 1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

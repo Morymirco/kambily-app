@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../pages/auth/profile_page.dart';
 import '../pages/boutique_page.dart';
 import '../pages/favoris_page.dart';
 import '../pages/home_page.dart';
 import '../pages/panier_page.dart';
-import '../pages/profil_page.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_bottom_nav.dart';
 import '../widgets/custom_drawer.dart';
@@ -18,13 +18,13 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
-  
+
   final List<Widget> _pages = const [
     HomePage(),
     BoutiquePage(),
     PanierPage(),
     FavorisPage(),
-    ProfilPage(),
+    ProfilePage(),
   ];
 
   void _onPageChanged(int index) {
