@@ -62,57 +62,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _buildErrorMessage() {
-    if (_errorMessage == null) return const SizedBox.shrink();
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.red.shade50,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.red.shade200),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            Icons.error_outline,
-            color: Colors.red.shade700,
-            size: 20,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              _errorMessage!,
-              style: TextStyle(
-                color: Colors.red.shade700,
-                fontSize: 14,
-                height: 1.4,
-              ),
-            ),
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            icon: Icon(
-              Icons.close,
-              size: 18,
-              color: Colors.red.shade700,
-            ),
-            onPressed: () {
-              setState(() => _errorMessage = null);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -126,11 +81,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 12),
               // Titre
-              const Text(
+              Text(
                 'Connectez-vous à votre compte',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.titleLarge?.color,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -277,9 +233,10 @@ class _LoginPageState extends State<LoginPage> {
                                       AlwaysStoppedAnimation<Color>(Colors.white),
                                 ),
                               )
-                            : const Text(
+                            : Text(
                                 'Se connecter',
                                 style: TextStyle(
+                                  color: isDarkMode ? Colors.white : Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -290,18 +247,22 @@ class _LoginPageState extends State<LoginPage> {
                     // Séparateur
                     Row(
                       children: [
-                        Expanded(child: Divider(color: Colors.grey[300])),
+                        Expanded(child: Divider(
+                          color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
+                        )),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             'Ou continuer avec',
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
                               fontSize: 12,
                             ),
                           ),
                         ),
-                        Expanded(child: Divider(color: Colors.grey[300])),
+                        Expanded(child: Divider(
+                          color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
+                        )),
                       ],
                     ),
                     const SizedBox(height: 24),
@@ -321,7 +282,9 @@ class _LoginPageState extends State<LoginPage> {
                             label: const Text('Google'),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 12),
-                              side: BorderSide(color: Colors.grey[300]!),
+                              side: BorderSide(
+                                color: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -342,7 +305,9 @@ class _LoginPageState extends State<LoginPage> {
                             label: const Text('Facebook'),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 12),
-                              side: BorderSide(color: Colors.grey[300]!),
+                              side: BorderSide(
+                                color: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -357,6 +322,57 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildErrorMessage() {
+    if (_errorMessage == null) return const SizedBox.shrink();
+
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          color: isDarkMode ? Colors.red.shade900.withOpacity(0.2) : Colors.red.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isDarkMode ? Colors.red.shade800 : Colors.red.shade200,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.error_outline,
+            color: isDarkMode ? Colors.red.shade100 : Colors.red.shade700,
+            size: 20,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              _errorMessage!,
+              style: TextStyle(
+                color: isDarkMode ? Colors.red.shade100 : Colors.red.shade700,
+                fontSize: 14,
+                height: 1.4,
+              ),
+            ),
+          ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: Icon(
+              Icons.close,
+              size: 18,
+              color: isDarkMode ? Colors.red.shade100 : Colors.red.shade700,
+            ),
+            onPressed: () {
+              setState(() => _errorMessage = null);
+            },
+          ),
+        ],
       ),
     );
   }

@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
             BannerCarousel(),
             const SizedBox(height: 24),
             QualitySection(isDarkMode: Theme.of(context).brightness == Brightness.dark),
-            const SizedBox(height: 24),
+            const SizedBox(height: 8),
             CategoriesGrid(isDarkMode: Theme.of(context).brightness == Brightness.dark),
           ],
         ),

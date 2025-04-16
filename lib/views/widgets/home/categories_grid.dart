@@ -241,7 +241,7 @@ class _CategoriesGridState extends State<CategoriesGrid> {
                 fontFamily: 'Krub',
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: widget.isDarkMode ? Colors.black87 : Colors.black,
+                color: widget.isDarkMode ? Colors.white : Colors.black,
               ),
               textAlign: TextAlign.center,
               maxLines: 2,

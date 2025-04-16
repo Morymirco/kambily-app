@@ -55,7 +55,7 @@ class QualitySection extends StatelessWidget {
                         fontFamily: 'Krub',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: isDarkMode ? Colors.black : null,
+                        color: isDarkMode ? Colors.white : Colors.black,
                       ),
                     ),
                     const SizedBox(height: 2),

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:io';
 
 part 'register_request.g.dart';
 
@@ -11,6 +12,7 @@ class RegisterRequest {
   @JsonKey(name: 'password_confirmation')
   final String passwordConfirmation;
   final String phone;
+  final File? profileImage;
 
   RegisterRequest({
     required this.firstName,
@@ -19,6 +21,7 @@ class RegisterRequest {
     required this.password,
     required this.passwordConfirmation,
     required this.phone,
+    this.profileImage,
   });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) => _$RegisterRequestFromJson(json);
